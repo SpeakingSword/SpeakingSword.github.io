@@ -12,7 +12,7 @@
 
 
 
-<title>代码高亮测试 | SpaceMan&#39;s Blog</title>
+<title>Unity 学习笔记—Create With Code（一） | SpaceMan&#39;s Blog</title>
 
 
 
@@ -174,7 +174,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">代码高亮测试</h1>
+            <h1 class="post-title">Unity 学习笔记—Create With Code（一）</h1>
             
                 <div class="post-meta">
                     
@@ -183,14 +183,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">November 7, 2019&nbsp;&nbsp;19:33:36</a>
+                        Date: <a href="#">November 16, 2019&nbsp;&nbsp;12:38:44</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Default/">Default</a>
+                                <a href="/categories/GameDev/">GameDev</a>
                             
                         </span>
                     
@@ -199,7 +199,25 @@
         </header>
 
         <div class="post-content">
-            <h2 id="测试一段C-代码"><a href="#测试一段C-代码" class="headerlink" title="测试一段C#代码"></a>测试一段C#代码</h2><h3 id="这里采用了SublimeText的高亮风格"><a href="#这里采用了SublimeText的高亮风格" class="headerlink" title="这里采用了SublimeText的高亮风格"></a>这里采用了SublimeText的高亮风格</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.SceneManagement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SpawnManager</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> GameObject player;                       <span class="comment">// 玩家实例</span></span><br><span class="line">    <span class="keyword">public</span> Transform spawnPosition;                 <span class="comment">// 重生位置</span></span><br><span class="line">    <span class="keyword">public</span> GameObject gameOverScreen;               <span class="comment">// 玩家死亡后的显示界面</span></span><br><span class="line">    <span class="keyword">private</span> GameManager gameManager;                <span class="comment">// 游戏管理者实例</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        gameManager = GameObject.Find(<span class="string">"GameManager"</span>).GetComponent&lt;GameManager&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// 如果玩家的生命值小于等于0则显示"Game Over"</span></span><br><span class="line">        <span class="keyword">if</span>(player.GetComponent&lt;PlayerController&gt;().PlayerHealth &lt;= <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            gameOverScreen.SetActive(<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重新开始游戏</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RestartGame</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Physics2D.gravity /= gameManager.GravityModifier;</span><br><span class="line">        SceneManager.LoadScene(SceneManager.GetActiveScene().name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回标题界面</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Menu</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Physics2D.gravity /= gameManager.GravityModifier;</span><br><span class="line">        SceneManager.LoadScene(<span class="string">"Start"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h1 id="Player-Control-（角色的控制）"><a href="#Player-Control-（角色的控制）" class="headerlink" title="Player Control （角色的控制）"></a>Player Control （角色的控制）</h1><p><strong>一、重要概念</strong><br><strong>1. Component</strong><br>组件是Unity中十分重要的概念，游戏中每个游戏对象(以下简称<strong>Object</strong>)都拥有各自独立的组件，而且每个Object都有 <em>Transform</em> 组件(用来保存Obejct的位置、旋转、大小信息)，除此之外Object还可以添加诸如 <em>Rigidbody<em>、</em>Collider<em>、</em>Renderer<em>、</em>Script(脚本)</em> 等组件， 这里列出的每个组件的功能都可以到 <a href="https://docs.unity3d.com/Manual/index.html" target="_blank" rel="noopener">Unity Manual</a> 查看，我后边的文章也会细讲。</p>
+<p><strong>二、常用API列表</strong><br><strong>1. Start 方法</strong><br><strong>2. Update 方法</strong><br><strong>3. Time.deltaTime</strong><br><strong>4. transfrom.Translate()</strong><br><strong>5. transfrom.Rotate()</strong><br><strong>6. Input.GetKeyDown()</strong></p>
+<p> <strong>三、API解释</strong><br><strong>1. Start 方法</strong><br>Start方法是在游戏开始渲染的第一帧之前执行，官方解释为<code>Start is called before the first frame update</code>，主要用来初始化游戏场景。代码如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">//这里可以初始化参数</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. Update 方法</strong><br>Update方法是在游戏开始后的每一帧都执行, 官方解释为<code>Update is called once per frame</code>，主要处理游戏中的逻辑，代码如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">//这行代码将Object不停的自旋转, Vector3.forward表示世界坐标的正方向</span></span><br><span class="line">        <span class="comment">// spinSpeed * Time.deltaTime表示每秒的转速</span></span><br><span class="line">        transform.Rotate(Vector3.forward * spinSpeed * Time.deltaTime);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. Time.deltaTime</strong><br>返回游戏中每一帧的运行的时间，一般很小，根据机器的性能会不相同。</p>
+<p><strong>4. transfrom.Translate()</strong><br>用来改变Object的 <em>Transform</em>  的 position 的值，就是移动物体</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Move our vehicle forward</span></span><br><span class="line"><span class="comment">// 参数为移动方向乘以每秒的移动速度</span></span><br><span class="line">transform.Translate(Vector3.forward * vehicleSpeed * Time.deltaTime * verticalValue);</span><br></pre></td></tr></table></figure>
+
+<p><strong>5. transfrom.Rotate()</strong><br>用来改变Obejct的 <em>Transfrom</em> 的 rotation 的值，就是旋转物体<br><strong>ps</strong>:另外提醒一点，Obejct的rotation的值是不能直接通过transform.rotation.x等方式来改变的，原因是rotation的x、y、z是属性，C#中属性返回的都是值的copy</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Turn our vehicle</span></span><br><span class="line"><span class="comment">// 参数分别为旋转轴、每秒的旋转速度</span></span><br><span class="line">transform.Rotate(Vector3.up, vehicleTurnSpeed * Time.deltaTime * horizontalValue);</span><br></pre></td></tr></table></figure>
+
+<p><strong>6. Input.GetKeyDown()</strong><br>用来检测用户的输入, 另外还有 Input.GetKey()，input.GetAxis() 等等<br>GetKeyDown和GetKey的参数一般为KeyCode.key，是一个键位，而GetAxis的参数为一个轴，比如<b>“Horizontal”</b>和<b>“Vertical”</b>分别为水平方向上的轴和垂直方向上的轴。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">input.GetKeyDown(KeyCode.Space)  <span class="comment">// 检测是否按下空格键，函数返回true/false</span></span><br><span class="line">input.GetKey(KeyCode.Space)      <span class="comment">// 检测是否持续按下空格键，函数返回true/false</span></span><br><span class="line">input.GetAxis(<span class="string">"Horizontal"</span>)      <span class="comment">// 检测是否按下水平方向键，水平方向键在Unity里默认设置为 A/D和 ←/→键位，垂直方向键应该很容易想到是什么了</span></span><br></pre></td></tr></table></figure>
+
+<p>结语：总的来说，这篇文章的内容就是讲了一些在Unity中编程需要了解的基础概念和常用API，了解完上面那些知识点完全可以拿来制作简单的角色控制逻辑，当然不包括物理效果方面，由于Unity中物理引擎相关的内容挺多，所以需要用单独的文章来讲解。</p>
 
         </div>
 
@@ -214,7 +232,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://speakingsword.github.io/2019/11/07/CodeTest/">https://speakingsword.github.io/2019/11/07/CodeTest/</a></span>
+                        <span><a href="https://speakingsword.github.io/2019/11/16/Unity-Create-With-Code-one/">https://speakingsword.github.io/2019/11/16/Unity-Create-With-Code-one/</a></span>
                     </p>
                 
                 
@@ -240,7 +258,7 @@
                     
                         <a href="/tags/C/"># C#</a>
                     
-                        <a href="/tags/Test/"># Test</a>
+                        <a href="/tags/Unity/"># Unity</a>
                     
                         
                 </span>
@@ -253,10 +271,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2019/11/16/Unity-Create-With-Code-one/">Unity 学习笔记—Create With Code（一）</a>
             
-            
-            <a class="next" rel="next" href="/2019/11/02/hello-world/">Hello World</a>
+            <a class="next" rel="next" href="/2019/11/07/CodeTest/">代码高亮测试</a>
             
         </section>
 
