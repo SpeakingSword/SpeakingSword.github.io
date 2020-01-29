@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Vincent Liang">
+
+
+
+
+
+<title>LearnOpenGL-Chapter-one | SpaceMan&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/image/astronaut.jpg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Welcome</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Welcome</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">LearnOpenGL-Chapter-one</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Vincent Liang</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 29, 2020&nbsp;&nbsp;22:42:18</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/ComputerGraphic/">ComputerGraphic</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="什么是OpenGL"><a href="#什么是OpenGL" class="headerlink" title="什么是OpenGL"></a><strong>什么是OpenGL</strong></h3><p>准确的说OpenGL只是一个<font color = #0088ff><strong>API规范</strong></font>，规范文档中包含了绘制计算机图形所需的系统结构及其组成（功能）的描述。文档是OpenGL的说明，就像C++的头文件（不包含实现的）。而OpenGL的实现一般<u>由显卡制造商编写</u>，但其编写必须遵循规范中的描述（就是实现规范中所描述的功能，但怎么实现的随意）。</p>
+<h3 id="OpenGL的结构与组成"><a href="#OpenGL的结构与组成" class="headerlink" title="OpenGL的结构与组成"></a><strong>OpenGL的结构与组成</strong></h3><p>OpenGL可以被看做是一个巨大的<font color = #0088ff><strong>状态机</strong></font>，有许多选项，工作时会根据选项值的不同而更换自己的状态，执行不同的功能。比如工作时你可以指定OpenGL是绘制线框还是多边形。OpenGL状态的切换是通过<font color = #0088ff><strong>对象</strong></font>的切换来实现的，对象是OpenGL选项的子集。通过在多个同种对象（包含的选项相同，但值不同）之间切换，从而实现OpenGL状态的切换。</p>
+<h3 id="OpenGL是如何绘制图形的"><a href="#OpenGL是如何绘制图形的" class="headerlink" title="OpenGL是如何绘制图形的"></a><strong>OpenGL是如何绘制图形的</strong></h3><p>OpenGL的很多前期工作都是在配置选项（确定其状态），绘图的实现由<font color = #0088ff><strong>图形渲染管线</strong></font>来完成。图形渲染管线是一个数据处理过程，这个过程由几个步骤组成，分别为读取顶点数据、顶点坐标变换、图元装配、图元的增删、光栅化、片段处理、测试与混合，最后生成最终的像素并显示。其中顶点坐标变换、图元的增删、片段处理分别被包装为顶点着色器、几何着色器、片段着色器，而顶点、片段着色器可以自定义编写其功能，几何着色器可以配置，这就是常说的可编程渲染管线。</p>
+<h3 id="OpenGL的工作流程"><a href="#OpenGL的工作流程" class="headerlink" title="OpenGL的工作流程"></a><strong>OpenGL的工作流程</strong></h3><p>一般流程为：<br>① 创建并配置OpenGL上下文（所有状态选项的集合）<br>② 创建并配置顶点数组对象（包含顶点缓存对象、顶点索引对象、顶点属性指针）<br>③ 创建并编译、链接着色器程序<br>④ 创建并配置纹理对象<br>⑤ 开启或关闭相关OpenGL功能<br>⑥ 使用渲染循环绘制图形<br><font color = #ff6600><strong>PS</strong></font> ：上面只是一个最简单的绘制过程（只生成一个静态的场景，没法与场景互动），通常OpenGL绘制前要做大量的配置工作，在渲染循环中，由于绘制内容会根据实际需求实时改变，所以渲染循环中的内容也十分多变。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Vincent Liang</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://speakingsword.github.io/2020/01/29/LearnOpenGL-Chapter-one/">https://speakingsword.github.io/2020/01/29/LearnOpenGL-Chapter-one/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>I am an <strong>Expoloer</strong>! Aways!</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/OpenGL/"># OpenGL</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();" target="_blank" rel="noopener">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/11/16/Unity-Create-With-Code-one/">Unity 学习笔记—Create With Code（一）</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Vincent Liang | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
