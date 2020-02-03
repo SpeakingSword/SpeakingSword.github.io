@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Vincent Liang">
+
+
+
+
+
+<title>配置OpenGL | SpaceMan&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/image/astronaut.jpg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Welcome</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Welcome</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">配置OpenGL</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Vincent Liang</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 3, 2020&nbsp;&nbsp;22:20:49</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/ComputerGraphic/">ComputerGraphic</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>想要使用OpenGL开发3D应用，我们需要创建OpenGL上下文(OpenGL状态集合)和显示内容的窗口，并将OpenGL上下文与窗口进行绑定，这样OpenGL上下文所保存的帧缓存（当前状态的绘制结果）才可以显示到窗口上。OpenGL对如何创建上下文、绑定窗口都只是做了抽象的定义，没有具体的实现，所以我们得自己动手。幸运的是，这些繁琐的操作已经有人替我们做了，我们只需要导入别人的库就可以轻松的完成准备工作。</p>
+<h3 id="GLFW"><a href="#GLFW" class="headerlink" title="GLFW"></a>GLFW</h3><p>GLFW是一个专门针对OpenGL的C语言库，它提供了一些渲染物体所需的最低限度的接口。它允许用户创建OpenGL上下文，定义窗口参数以及处理用户输入。</p>
+<h3 id="构建GLFW"><a href="#构建GLFW" class="headerlink" title="构建GLFW"></a>构建GLFW</h3><blockquote>
+<ol>
+<li>获取源码<br>地址：<a href="https://www.glfw.org/download.html" target="_blank" rel="noopener">https://www.glfw.org/download.html</a>  </li>
+<li>使用CMake生成Visual Studio工程文件<br>对于GLFW我们只需要它的<strong>库文件</strong>（编译生成）和源码包下Include文件夹里的<strong>头文件</strong>。所以我们需要使用CMake从源码构建一个Visual Studio工程并编译生成库文件。从CMake官网<a href="https://cmake.org/download/" target="_blank" rel="noopener">下载</a>安装包。安装完后启动CMake GUI。<img src="https://learnopengl-cn.github.io/img/01/02/cmake.png" alt="avatar"><br>要生成Visual Studio工程文件，CMake需要一个源代码目录（你解压源码包的路径）和一个存放编译结果的目标文件目录。选择完后点击<strong>Configure</strong>按钮，然后CMake会读取设置和源代码，完成后在弹出的窗口选择对应的生成器，比如Visual Studio 15（对应Visual Studio 2017），然后点击<strong>Finish</strong>按钮，再次点击<strong>Configure</strong>按钮保存设置。保存之后点击<strong>Generate</strong>按钮，生成的工程文件夹会出现在你选择的目标文件目录内。</li>
+<li>编译<br>找到生成工程文件夹里的<strong>GLFW.sln</strong>文件，用Visual Studio 打开工程后，直接点击<strong>Build Solution(生成解决方案)</strong>，如果没有任何生成错误，那<strong>glfw3.lib</strong>会出现在<strong>src/Debug</strong>文件夹内。</li>
+<li>为IDE指定库文件和头文件<br>我推荐的方式是建立一个新的目录包含所有的第三方库文件和头文件，并且在你的IDE或编译器中指定这些文件夹。里面包含<strong>Libs</strong>和<strong>Include</strong>文件夹，在这里存放OpenGL工程用到的所有第三方库和头文件。这样所有第三方库都在同一个位置（并且可以共享至多台电脑）。然而这要求你每次新建一个工程时都需要告诉IDE/编译器在哪能找到这些目录。</li>
+<li>新建一个Visual Studio工程<br>选择Visual C++，选择<strong>Empty Project(空项目)</strong>。</li>
+<li>链接库文件和头文件<br>首先，右键点击项目进入<strong>Project Properties(工程属性)</strong>，然后选择<strong>VC++ Directories(VC++目录)</strong> 选项卡（如下图）。在下面两栏添加目录：<br><img src="https://learnopengl-cn.github.io/img/01/02/vc_directories.png" alt="avatar"><br>这里你可以把自己的目录加进去，让工程知道到哪去搜索。你需要手动把目录加在后面，也可以点击需要的位置字符串，选择选项，之后会出现类似下面这幅图的界面，图是选择<strong>Include Directories(包含目录)</strong>时的界面：<div align = center><img src="https://learnopengl-cn.github.io/img/01/02/include_directories.png" alt="avatar"></div>这里可以添加任意多个目录，IDE会从这些目录里寻找头文件。所以只要你将GLFW的Include文件夹加进路径中，你就可以使用<span><strong>&lt;GLFW/..&gt;</strong></span>来引用头文件了。库文件夹也是一样的。<br><br><br>现在VS可以找到所需的所有文件了。最后需要在<strong>Linker(链接器)</strong>选项卡里的<strong>Input(输入)</strong>选项卡里添加<strong>glfw3.lib</strong>这个文件：<br><img src="https://learnopengl-cn.github.io/img/01/02/linker_input.png" alt="avatar"><br>要链接一个库我们必须告诉链接器它的文件名。库名字是<strong>glfw3.lib</strong>，我们把它加到<strong>Additional Dependencies(附加依赖项)</strong>字段中(手动或者使用选项都可以)。这样GLFW在编译的时候就会被链接进来了。除了GLFW之外，你还需要添加一个链接条目链接到OpenGL的库，但是这个库可能因为系统的不同而有一些差别。</li>
+</ol>
+</blockquote>
+<h3 id="OpenGL库"><a href="#OpenGL库" class="headerlink" title="OpenGL库"></a>OpenGL库</h3><p>Windows平台中，<strong>opengl32.lib</strong>已经包含在Microsoft SDK里了，它在Visual Studio安装的时候就默认安装了，我们只需将<strong>opengl32.lib</strong>添加进连接器设置里就行了。</p>
+<h3 id="GLAD"><a href="#GLAD" class="headerlink" title="GLAD"></a>GLAD</h3><p>我们仍然还有一件事要做。因为OpenGL只是一个标准/规范，具体的实现是由驱动开发商针对特定显卡实现的。由于OpenGL驱动版本众多，它大多数函数的位置都无法在编译时确定下来，需要在运行时查询。所以任务就落在了开发者身上，开发者需要在运行时获取函数地址并将其保存在一个函数指针中供以后使用。取得地址的方法因平台而异，在Windows上会是类似这样：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义函数原型</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*GL_GENBUFFERS)</span> <span class="params">(GLsizei, GLuint*)</span></span>;</span><br><span class="line"><span class="comment">// 找到正确的函数并赋值给函数指针</span></span><br><span class="line">GL_GENBUFFERS glGenBuffers  = (GL_GENBUFFERS)wglGetProcAddress(<span class="string">"glGenBuffers"</span>);</span><br><span class="line"><span class="comment">// 现在函数可以被正常调用了</span></span><br><span class="line">GLuint <span class="built_in">buffer</span>;</span><br><span class="line">glGenBuffers(<span class="number">1</span>, &amp;<span class="built_in">buffer</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置GLAD"><a href="#配置GLAD" class="headerlink" title="配置GLAD"></a>配置GLAD</h3><p>GLAD是一个<a href="https://github.com/Dav1dde/glad" target="_blank" rel="noopener">开源</a>的库，它能解决我们上面提到的那个繁琐的问题。GLAD的配置与大多数的开源库有些许的不同，GLAD使用了一个<a href="https://glad.dav1d.de" target="_blank" rel="noopener">在线服务</a>。在这里我们能够告诉GLAD需要定义的OpenGL版本，并且根据这个版本加载所有相关的OpenGL函数。</p>
+<p>打开GLAD的<a href="https://glad.dav1d.de" target="_blank" rel="noopener">在线服务</a>，将语言(Language)设置为<strong>C/C++</strong>，在API选项中，选择<strong>3.3</strong>以上的OpenGL(gl)版本（我们的教程中将使用3.3版本，但更新的版本也能正常工作）。之后将模式(Profile)设置为<strong>Core</strong>，并且保证<strong>生成加载器</strong>(Generate a loader)的选项是选中的。现在可以先（暂时）忽略拓展(Extensions)中的内容。都选择完之后，点击<strong>生成</strong>(Generate)按钮来生成库文件。</p>
+<p>GLAD现在应该提供给你了一个zip压缩文件，包含两个头文件目录，和一个<strong>glad.c</strong>文件。将两个头文件目录（<strong>glad</strong>和<strong>KHR</strong>）复制到你的<strong>Include</strong>文件夹中（或者增加一个额外的项目指向这些目录），并添加glad.c文件到你的工程中。</p>
+<p>经过前面的这些步骤之后，你就应该可以将以下的指令加到你的文件顶部了:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;glad/glad.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>好了，OpenGL的配置工作到这里就算完成了，其实像第三方库的选择并不一定只有GLFW和GLAD，跟GLFW差不多的还有GLUT、FREEGLUT、SDL、SFML，跟GLAD差不多的有GLEW。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Vincent Liang</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://speakingsword.github.io/2020/02/03/OpenGLSetUp-Window/">https://speakingsword.github.io/2020/02/03/OpenGLSetUp-Window/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>I am an <strong>Expoloer</strong>! Aways!</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/OpenGL/"># OpenGL</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();" target="_blank" rel="noopener">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/01/29/LearnOpenGL-Chapter-one/">OpenGL简介</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Vincent Liang | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
